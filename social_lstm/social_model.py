@@ -406,4 +406,4 @@ class SocialModel():
                 prev_target_data = np.reshape(true_traj[traj.shape[0] + t + 1], (1, self.maxNumPeds, 3))
 
         # The returned ret is of shape (obs_length+pred_length) x maxNumPeds x 3
-            return ret
+        return ret

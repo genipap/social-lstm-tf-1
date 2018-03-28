@@ -26,7 +26,7 @@ def get_mean_error(predicted_traj, true_traj, observed_length, maxNumPeds):
     # For each point in the predicted part of the trajectory
     for i in range(observed_length, len(true_traj)):
         # The predicted position. This will be a maxNumPeds x 3 matrix
-        pred_pos = predicted_traj[-(12 - i), :]
+        pred_pos = predicted_traj[i, :]
         # The true position. This will be a maxNumPeds x 3 matrix
         true_pos = true_traj[i, :]
         timestep_error = 0

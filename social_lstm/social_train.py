@@ -3,7 +3,7 @@ import argparse
 import os
 import time
 import pickle
-import ipdb
+# import ipdb
 
 from social_model import SocialModel
 from social_utils import SocialDataLoader
@@ -146,7 +146,7 @@ def train(args):
                   #      dataset_data = [640, 480]
                   #  else:
                   #      dataset_data = [720, 576]
-                    dataset_data = [13 * 4, 1640]
+                    dataset_data = [1640, 78]
                     grid_batch = getSequenceGridMask(x_batch, dataset_data, args.neighborhood_size, args.grid_size)
 
                     # Feed the source, target data
@@ -204,7 +204,7 @@ def train(args):
                     #    dataset_data = [640, 480]
                     #else:
                     #    dataset_data = [720, 576]
-                    dataset_data = [13 * 4, 1640]
+                    dataset_data = [1640, 78]
                     grid_batch = getSequenceGridMask(x_batch, dataset_data, args.neighborhood_size, args.grid_size)
 
                     # Feed the source, target data

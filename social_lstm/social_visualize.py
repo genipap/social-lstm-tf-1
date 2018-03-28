@@ -33,12 +33,12 @@ def plot_trajectories(true_trajs, pred_trajs, obs_length, name):
     # implot = plt.imshow(im)
     # width = im.shape[0]
     # height = im.shape[1]
-    width = 1640
-    height = 52
+    width = 52
+    height = 1640
 
     traj_data = {}
     # For each frame/each point in all trajectories
-    for i in range(7):
+    for i in range(traj_length):
         pred_pos = pred_trajs[i, :]
         true_pos = true_trajs[i, :]
 
@@ -65,17 +65,17 @@ def plot_trajectories(true_trajs, pred_trajs, obs_length, name):
                     traj_data[j][1].append(pred_pos[j, 1:3])
 
     for j in traj_data:
-        c = np.random.rand(3, 1)
+        # c = np.random.randint(3, 1)
         true_traj_ped = traj_data[j][0]  # List of [x,y] elements
         pred_traj_ped = traj_data[j][1]
 
-        true_x = [p[0]*height for p in true_traj_ped]
-        true_y = [p[1]*width for p in true_traj_ped]
-        pred_x = [p[0]*height for p in pred_traj_ped]
-        pred_y = [p[1]*width for p in pred_traj_ped]
+        true_x = [p[0]*width for p in true_traj_ped]
+        true_y = [p[1]*height for p in true_traj_ped]
+        pred_x = [p[0]*width for p in pred_traj_ped]
+        pred_y = [p[1]*height for p in pred_traj_ped]
         
-        plt.plot(true_x, true_y, color=c, linestyle='solid', marker='o')
-        plt.plot(pred_x, pred_y, color=c, linestyle='dashed', marker='x')
+        plt.plot(true_x, true_y, linestyle='solid', marker='o')
+        plt.plot(pred_x, pred_y, linestyle='dashed', marker='x')
 
     # plt.ylim((0, 1))
     # plt.xlim((0, 1))

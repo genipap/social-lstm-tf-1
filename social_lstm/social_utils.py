@@ -9,7 +9,7 @@ Date : 17th October 2016
 import os
 import pickle
 import numpy as np
-import ipdb
+# import ipdb
 import random
 import pdb
 # The data loader class that loads data from the datasets considering
