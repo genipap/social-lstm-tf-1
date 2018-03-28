@@ -11,13 +11,13 @@ import pickle
 import numpy as np
 import ipdb
 import random
-
+import pdb
 # The data loader class that loads data from the datasets considering
 # each frame as a datapoint and a sequence of consecutive frames as the
 # sequence.
 class SocialDataLoader():
 
-    def __init__(self, batch_size=50, seq_length=5, maxNumPeds=40, datasets=[0, 1, 2, 3, 4], forcePreProcess=False, infer=False):
+    def __init__(self, batch_size=50, seq_length=5, maxNumPeds=49, datasets=[0], forcePreProcess=False, infer=False):
         '''
         Initialiser function for the SocialDataLoader class
         params:
@@ -26,9 +26,11 @@ class SocialDataLoader():
         forcePreProcess : Flag to forcefully preprocess the data again from csv files
         '''
         # List of data directories where raw data resides
-        self.data_dirs = ['../data/eth/univ', '../data/eth/hotel',
-                          '../data/ucy/zara/zara01', '../data/ucy/zara/zara02',
-                          '../data/ucy/univ']
+        #self.data_dirs = ['../data/eth/univ', '../data/eth/hotel',
+        #                  '../data/ucy/zara/zara01', '../data/ucy/zara/zara02',
+        #                  '../data/ucy/univ']
+        self.data_dirs = ['../data/i80']
+        
         # self.data_dirs = ['./data/eth/univ', './data/eth/hotel']
 
         self.used_data_dirs = [self.data_dirs[x] for x in datasets]
@@ -137,18 +139,25 @@ class SocialDataLoader():
 
                 # Initialize the row of the numpy array
                 pedsWithPos = []
-
+                #pdb.set_trace()
                 # For each ped in the current frame
+                #print pedsList
                 for ped in pedsList:
+                    # print 'in for'
+                    # print ped
                     # Extract their x and y positions
+                    #pdb.set_trace()
                     current_x = pedsInFrame[3, pedsInFrame[1, :] == ped][0]
                     current_y = pedsInFrame[2, pedsInFrame[1, :] == ped][0]
 
                     # Add their pedID, x, y to the row of the numpy array
                     pedsWithPos.append([ped, current_x, current_y])
-
+                #print pedsWithPos
                 if (ind >= valid_numFrames) or (self.infer):
                     # Add the details of all the peds in the current frame to all_frame_data
+                   # print len(pedsList)
+                   # print np.shape(pedsWithPos)
+                   # print all_frame_data[dataset_index].shape
                     all_frame_data[dataset_index][ind - valid_numFrames, 0:len(pedsList), :] = np.array(pedsWithPos)
                 else:
                     valid_frame_data[dataset_index][ind, 0:len(pedsList), :] = np.array(pedsWithPos)
@@ -214,6 +223,8 @@ class SocialDataLoader():
         while i < self.batch_size:
             # Extract the frame data of the current dataset
             frame_data = self.data[self.dataset_pointer]
+            #print frame_data
+            #print frame_data.shape
             # Get the frame pointer for the current dataset
             idx = self.frame_pointer
             # While there is still seq_length number of frames left in the current dataset
@@ -224,11 +235,12 @@ class SocialDataLoader():
                 seq_target_frame_data = frame_data[idx+1:idx+self.seq_length+1, :]
                 # Number of unique peds in this sequence of frames
                 pedID_list = np.unique(seq_frame_data[:, :, 0])
+             #   print seq_frame_data[:,:,0]
                 numUniquePeds = pedID_list.shape[0]
-
+              #  print numUniquePeds  
                 sourceData = np.zeros((self.seq_length, self.maxNumPeds, 3))
                 targetData = np.zeros((self.seq_length, self.maxNumPeds, 3))
-
+               # print sourceData.shape
                 for seq in range(self.seq_length):
                     sseq_frame_data = seq_source_frame_data[seq, :]
                     tseq_frame_data = seq_target_frame_data[seq, :]

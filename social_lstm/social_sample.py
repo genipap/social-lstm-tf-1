@@ -26,7 +26,7 @@ def get_mean_error(predicted_traj, true_traj, observed_length, maxNumPeds):
     # For each point in the predicted part of the trajectory
     for i in range(observed_length, len(true_traj)):
         # The predicted position. This will be a maxNumPeds x 3 matrix
-        pred_pos = predicted_traj[i, :]
+        pred_pos = predicted_traj[-(12 - i), :]
         # The true position. This will be a maxNumPeds x 3 matrix
         true_pos = true_traj[i, :]
         timestep_error = 0
@@ -74,13 +74,13 @@ def main():
                         help='Dataset to be tested on')
 
     # Model to be loaded
-    parser.add_argument('--epoch', type=int, default=49,
+    parser.add_argument('--epoch', type=int, default=0,
                         help='Epoch of model to be loaded')
     
 
     # Parse the parameters
-    sample_args = parser.parse_args()
-
+    # sample_args = parser.parse_args()
+    args = parser.parse_args()
     # Save directory
     save_directory = 'save/' + str(args.test_dataset) + '/'
 
@@ -98,16 +98,17 @@ def main():
     # Get the checkpoint state for the model
     ckpt = tf.train.get_checkpoint_state(save_directory)
     # print ('loading model: ', ckpt.model_checkpoint_path)
+    # print('hahah: ', len(ckpt.all_model_checkpoint_paths))
     print('loading model: ', ckpt.all_model_checkpoint_paths[args.epoch])
 
     # Restore the model at the checkpoint
     saver.restore(sess, ckpt.all_model_checkpoint_paths[args.epoch])
 
     # Dataset to get data from
-    dataset = [sample_args.test_dataset]
+    dataset = [0]
 
     # Create a SocialDataLoader object with batch_size 1 and seq_length equal to observed_length + pred_length
-    data_loader = SocialDataLoader(1, sample_args.pred_length + sample_args.obs_length, saved_args.maxNumPeds, dataset, True, infer=True)
+    data_loader = SocialDataLoader(1, args.pred_length + args.obs_length, saved_args.maxNumPeds, dataset, True, infer=True)
 
     # Reset all pointers of the data_loader
     data_loader.reset_batch_pointer()
@@ -124,29 +125,31 @@ def main():
         # Batch size is 1
         x_batch, y_batch, d_batch = x[0], y[0], d[0]
 
-        if d_batch == 0 and dataset[0] == 0:
-            dimensions = [640, 480]
-        else:
-            dimensions = [720, 576]
+        # if d_batch == 0 and dataset[0] == 0:
+        #     dimensions = [640, 480]
+        # else:
+        #     dimensions = [720, 576]
+        dimensions = [52, 1640]
 
         grid_batch = getSequenceGridMask(x_batch, dimensions, saved_args.neighborhood_size, saved_args.grid_size)
 
-        obs_traj = x_batch[:sample_args.obs_length]
-        obs_grid = grid_batch[:sample_args.obs_length]
+        obs_traj = x_batch[:args.obs_length]
+        obs_grid = grid_batch[:args.obs_length]
         # obs_traj is an array of shape obs_length x maxNumPeds x 3
 
         print "********************** SAMPLING A NEW TRAJECTORY", b, "******************************"
-        complete_traj = model.sample(sess, obs_traj, obs_grid, dimensions, x_batch, sample_args.pred_length)
+        complete_traj = model.sample(sess, obs_traj, obs_grid, dimensions, x_batch, args.pred_length)
 
         # ipdb.set_trace()
         # complete_traj is an array of shape (obs_length+pred_length) x maxNumPeds x 3
-        total_error += get_mean_error(complete_traj, x[0], sample_args.obs_length, saved_args.maxNumPeds)
+        print('hahah', len(complete_traj))
+        total_error += get_mean_error(complete_traj, x[0], args.obs_length, saved_args.maxNumPeds)
 
         print "Processed trajectory number : ", b, "out of ", data_loader.num_batches, " trajectories"
 
         # plot_trajectories(x[0], complete_traj, sample_args.obs_length)
         # return
-        results.append((x[0], complete_traj, sample_args.obs_length))
+        results.append((x[0], complete_traj, args.obs_length))
 
     # Print the mean error across all the batches
     print "Total mean error of the model is ", total_error/data_loader.num_batches

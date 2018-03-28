@@ -56,10 +56,10 @@ def main():
     parser.add_argument('--neighborhood_size', type=int, default=32,
                         help='Neighborhood size to be considered for social grid')
     # Size of the social grid parameter
-    parser.add_argument('--grid_size', type=int, default=4,
+    parser.add_argument('--grid_size', type=int, default=10,
                         help='Grid size of the social grid')
     # Maximum number of pedestrians to be considered
-    parser.add_argument('--maxNumPeds', type=int, default=40,
+    parser.add_argument('--maxNumPeds', type=int, default=49,
                         help='Maximum Number of Pedestrians')
     # The leave out dataset
     parser.add_argument('--leaveDataset', type=int, default=3,
@@ -85,8 +85,8 @@ def train(args):
     log_directory += str(args.leaveDataset) + '/'
 
     # Logging files
-    log_file_curve = open(os.path.join(log_directory, 'log_curve.txt'), 'w')
-    log_file = open(os.path.join(log_directory, 'val.txt'), 'w')
+   # log_file_curve = open(os.path.join(log_directory, 'log_curve.txt'), 'w')
+   # log_file = open(os.path.join(log_directory, 'val.txt'), 'w')
 
     # Save directory
     save_directory = 'save/'
@@ -142,11 +142,11 @@ def train(args):
                     # d_batch would be a scalar identifying the dataset from which this sequence is extracted
                     x_batch, y_batch, d_batch = x[batch], y[batch], d[batch]
 
-                    if d_batch == 0 and datasets[0] == 0:
-                        dataset_data = [640, 480]
-                    else:
-                        dataset_data = [720, 576]
-
+                  #  if d_batch == 0 and datasets[0] == 0:
+                  #      dataset_data = [640, 480]
+                  #  else:
+                  #      dataset_data = [720, 576]
+                    dataset_data = [13 * 4, 1640]
                     grid_batch = getSequenceGridMask(x_batch, dataset_data, args.neighborhood_size, args.grid_size)
 
                     # Feed the source, target data
@@ -175,7 +175,7 @@ def train(args):
                     print("model saved to {}".format(checkpoint_path))
                 '''
             loss_epoch /= data_loader.num_batches
-            log_file_curve.write(str(e)+','+str(loss_epoch)+',')
+    #        log_file_curve.write(str(e)+','+str(loss_epoch)+',')
             print '*****************'
 
             # Validation
@@ -200,11 +200,11 @@ def train(args):
                     # d_batch would be a scalar identifying the dataset from which this sequence is extracted
                     x_batch, y_batch, d_batch = x[batch], y[batch], d[batch]
 
-                    if d_batch == 0 and datasets[0] == 0:
-                        dataset_data = [640, 480]
-                    else:
-                        dataset_data = [720, 576]
-
+                    #if d_batch == 0 and datasets[0] == 0:
+                    #    dataset_data = [640, 480]
+                    #else:
+                    #    dataset_data = [720, 576]
+                    dataset_data = [13 * 4, 1640]
                     grid_batch = getSequenceGridMask(x_batch, dataset_data, args.neighborhood_size, args.grid_size)
 
                     # Feed the source, target data
@@ -226,7 +226,7 @@ def train(args):
 
             print('(epoch {}), valid_loss = {:.3f}'.format(e, loss_epoch))
             print 'Best epoch', best_epoch, 'Best validation loss', best_val_loss
-            log_file_curve.write(str(loss_epoch)+'\n')
+     #       log_file_curve.write(str(loss_epoch)+'\n')
             print '*****************'
 
             # Save the model after each epoch
@@ -236,11 +236,11 @@ def train(args):
             print("model saved to {}".format(checkpoint_path))
 
         print 'Best epoch', best_epoch, 'Best validation loss', best_val_loss
-        log_file.write(str(best_epoch)+','+str(best_val_loss))
+      #  log_file.write(str(best_epoch)+','+str(best_val_loss))
 
         # CLose logging files
-        log_file.close()
-        log_file_curve.close()
+       # log_file.close()
+       # log_file_curve.close()
 
 
 if __name__ == '__main__':

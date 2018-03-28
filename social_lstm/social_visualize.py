@@ -6,10 +6,12 @@ Date : 10th November 2016
 '''
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import pickle
+import matplotlib
 
-
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 def plot_trajectories(true_trajs, pred_trajs, obs_length, name):
     '''
     Function that plots the true trajectories and the
@@ -27,16 +29,16 @@ def plot_trajectories(true_trajs, pred_trajs, obs_length, name):
     plt.figure()
 
     # Load the background
-    im = plt.imread('plot/background.png')
-    implot = plt.imshow(im)
-    width = im.shape[0]
-    height = im.shape[1]
-    # width = 1
-    # height = 1
+    # im = plt.imread('plot/background.png')
+    # implot = plt.imshow(im)
+    # width = im.shape[0]
+    # height = im.shape[1]
+    width = 1640
+    height = 52
 
     traj_data = {}
     # For each frame/each point in all trajectories
-    for i in range(traj_length):
+    for i in range(7):
         pred_pos = pred_trajs[i, :]
         true_pos = true_trajs[i, :]
 
@@ -71,13 +73,13 @@ def plot_trajectories(true_trajs, pred_trajs, obs_length, name):
         true_y = [p[1]*width for p in true_traj_ped]
         pred_x = [p[0]*height for p in pred_traj_ped]
         pred_y = [p[1]*width for p in pred_traj_ped]
-
+        
         plt.plot(true_x, true_y, color=c, linestyle='solid', marker='o')
         plt.plot(pred_x, pred_y, color=c, linestyle='dashed', marker='x')
 
     # plt.ylim((0, 1))
     # plt.xlim((0, 1))
-    # plt.show()
+    plt.show()
     plt.savefig('plot/'+name+'.png')
     plt.gcf().clear()
     plt.close()
@@ -87,7 +89,8 @@ def main():
     '''
     Main function
     '''
-    f = open('save/social_results.pkl', 'rb')
+    f = open('save/3/social_results.pkl', 'rb')
+    # f = open('save/social_model.ckpt-47.meta', 'rb')
     results = pickle.load(f)
 
     for i in range(len(results)):
