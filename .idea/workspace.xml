@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa487270-a822-444a-98fc-465423ff3ce3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/i80/pixel_pos_interpolate.csv" afterPath="$PROJECT_DIR$/data/i80/pixel_pos_interpolate.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_lstm/social_sample.py" afterPath="$PROJECT_DIR$/social_lstm/social_sample.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_lstm/social_train.py" afterPath="$PROJECT_DIR$/social_lstm/social_train.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_lstm/social_visualize.py" afterPath="$PROJECT_DIR$/social_lstm/social_visualize.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +21,8 @@
       <file leaf-file-name="social_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/social_lstm/social_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1075">
-              <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+            <state relative-caret-position="180">
+              <caret line="30" column="51" lean-forward="true" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -105,6 +102,7 @@
       <find>seq_length</find>
       <find>dataset_data</find>
       <find>val_fraction</find>
+      <find>num_epochs</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -301,21 +299,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
-          <line>161</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
-          <line>164</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
-          <line>163</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
           <line>83</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
@@ -323,16 +306,6 @@
           <url>file://$PROJECT_DIR$/social_lstm/social_model.py</url>
           <line>31</line>
           <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/social_lstm/social_train.py</url>
-          <line>156</line>
-          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="42" />
@@ -418,8 +391,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/social_lstm/social_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1075">
-          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        <state relative-caret-position="180">
+          <caret line="30" column="51" lean-forward="true" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

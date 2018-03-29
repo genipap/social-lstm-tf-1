@@ -27,7 +27,7 @@ def main():
     parser.add_argument('--batch_size', type=int, default=16,
                         help='minibatch size')
     # Length of sequence to be considered parameter
-    parser.add_argument('--seq_length', type=int, default=40,
+    parser.add_argument('--seq_length', type=int, default=12,
                         help='RNN sequence length')
     # Number of epochs parameter
     parser.add_argument('--num_epochs', type=int, default=50,
@@ -177,9 +177,6 @@ def train(args):
             loss_epoch /= data_loader.num_batches
     #        log_file_curve.write(str(e)+','+str(loss_epoch)+',')
             print '*****************'
-
-
-
 
             # Validation
             data_loader.reset_batch_pointer(valid=True)
