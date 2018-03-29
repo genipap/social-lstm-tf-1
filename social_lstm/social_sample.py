@@ -129,7 +129,7 @@ def main():
         #     dimensions = [640, 480]
         # else:
         #     dimensions = [720, 576]
-        dimensions = [52, 1640]
+        dimensions = [1640, 78]
 
         grid_batch = getSequenceGridMask(x_batch, dimensions, saved_args.neighborhood_size, saved_args.grid_size)
 

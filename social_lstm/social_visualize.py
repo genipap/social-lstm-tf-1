@@ -99,6 +99,5 @@ def main():
         plot_trajectories(results[i][0], results[i][1], results[i][2], name)
 
 
-
 if __name__ == '__main__':
     main()
